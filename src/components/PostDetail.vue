@@ -2,6 +2,7 @@
   <article class="col-sm-12">
     <h1>{{ post.title }}</h1>
     <h2>{{ post.content }}</h2>
+    <h3>By: {{postUser.firstName}} {{postUser.lastName}}</h3>
     <p><img  src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
       <div class="btn btn-dark" @click="like()"  v-if="unliked">
             Like
@@ -19,6 +20,7 @@ export default {
     return {
       post: {},
       react:[],
+      postUser: {},
       likes: '',
       unliked: '', 
     };
@@ -45,7 +47,12 @@ export default {
       } else {
         this.unliked = false;
       }
-
+      this.$http
+      .get(`http://localhost:3000/api/v1/post/root/${this.$route.params.id}`)
+.then((data)=>
+      {
+        this.postUser = data.body;
+      })
   },
   methods: {
     like(){
