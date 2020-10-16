@@ -49,15 +49,18 @@ export default {
   },
   methods: {
     login() {
+      
       if (!this.email) return;
       if (!this.password) return;
       const { email, password } = this;
+      console.log("debug");
       this.$http
         .post('http://localhost:3000/api/v1/user/login', {
           email,
           password,
         })
         .then((data) => {
+          
           localStorage.clear();
           localStorage.setItem('jwt', data.body.token);
           localStorage.setItem('userId', data.body.userId);

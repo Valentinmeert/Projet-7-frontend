@@ -1,21 +1,20 @@
 <template>
   <div class="col-sm-12">
-    <paginate name="posts" :list="posts" :per="10" tag="div">
+    <paginate name="posts" :list="posts" :per="5" tag="div">
       <div >
       <section v-for="post in paginated('posts')" :key="post.id">
         <h2>{{ post.title }}</h2>
         <h3>Created at : {{ post.createdAt }}</h3>
-        <h4>{{post.userId}}</h4>
         <router-link :to="'/post/' + post.id" class="btn btn-dark">
           Voir le post
         </router-link>
         <router-link :to="'/'">
-          <div class="btn btn-primary" @click="destroy(post)" v-if="admin">
+          <div class="btn btn-success" @click="destroy(post)" v-if="admin">
             Supprimer le post
           </div>
         </router-link>
         <router-link :to="'/update/' + post.id" v-if="admin">
-          <div class="btn btn-primary">Modifier le post</div>
+          <div class="btn btn-success">Modifier le post</div>
         </router-link>
         <hr />
       </section>

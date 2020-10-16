@@ -11,7 +11,7 @@
       <router-link :to="'/updateUser/' + user.id">
         <div class="btn btn-primary">Modifier le profil</div>
       </router-link>
-        <div class="btn btn-primary" @click="destroy(user)">Supprimer le profil</div>
+        <div class="btn btn-danger" @click="destroy(user)">Supprimer le profil</div>
     </div>
   </div>
 <div class="col-sm-12">
@@ -27,7 +27,7 @@
             Supprimer le post
           </div>
         </router-link>
-        <router-link :to="'/update/' + post.id">
+        <router-link :to="'/updatePost/' + post.id">
           <div class="btn btn-primary">Modifier le post</div>
         </router-link>
         <hr />

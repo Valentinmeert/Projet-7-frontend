@@ -22,12 +22,6 @@
         placeholder="Ajouter un contenu"
       />
     </div>
-    <div>
-    <label for="avatar">Choose a profile picture:</label>
-<input type="file" @change="onFileChange($event)"
-      id="avatar" name="avatar"
-      accept="image/png, image/jpeg">
-    </div>
     <input type="submit" value="createPost" />
   </form>
 </template>
@@ -38,27 +32,22 @@ export default {
     return {
       title: '',
       content: '',
-      file: '',
+      
     };
   },
   methods: {
     createPost() {
       if (!this.title) return;
       if (!this.content) return;
-      const data = new FormData();
-      data.append("title", this.title);
-      data.append("content", this.content);
-      if(this.file){
-        data.append("file", this.file);
-      }
-      const { title, content, file} = this;
+      const { title, content} = this;
       this.$http
-        .post('http://localhost:3000/api/v1/post', 
-        data,
+        .post('http://localhost:3000/api/v1/post', {
+        title,
+        content,
+        },
         {
           headers: { 
-            authorization: 'Bearer ' + localStorage.getItem('jwt'),
-            "Content-Type":`multipart/form-data; boundary=${data._boundary}`
+            authorization: 'Bearer ' + localStorage.getItem('jwt')
           }
         })
         .then(
@@ -70,9 +59,6 @@ export default {
           }
         );
     },
-    onFileChange(event){
-      this.file=event.target.files[0]
-  }
   },
   
 };

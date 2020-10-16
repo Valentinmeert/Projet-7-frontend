@@ -25,8 +25,8 @@
         </li>
         <li class="nav-item active">
           <router-link
-            :to="'/user/' + user.id"
-            class="nav-link"
+            :to="'/user/' + user"
+            class="nav-link" 
             
             >My Profil</router-link
           >
@@ -53,7 +53,7 @@ export default {
   name: 'Nav',
   data(){
     return {
-      user:{},
+      user: localStorage.getItem('userId'),
     };
   },
   
