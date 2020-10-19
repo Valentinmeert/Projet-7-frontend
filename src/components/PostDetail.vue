@@ -4,11 +4,14 @@
     <h2>{{ post.content }}</h2>
     <h3>By: {{postUser.firstName}} {{postUser.lastName}}</h3>
     <p><img  src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
-      <div class="btn btn-dark" @click="like()"  v-if="unliked">
+    <div>
+      <img :src="post.imageUrl" alt="" class="postImg">
+    </div>
+      <div class="btn btn-dark" @click="like()"  v-if="disliked">
             Like
           </div>
       <div class="btn btn-dark" @click="unlike()" v-else >
-            Unlike
+            Dislike
           </div>
 
   </article>
@@ -22,7 +25,7 @@ export default {
       react:[],
       postUser: {},
       likes: '',
-      unliked: '', 
+      disliked: '', 
     };
   },
   created() {
@@ -43,9 +46,9 @@ export default {
         this.likes = Object.keys(data.data).length;
       })
       if(!localStorage.getItem(`${this.$route.params.id}`)){
-        this.unliked = true;
+        this.disliked = true;
       } else {
-        this.unliked = false;
+        this.disliked = false;
       }
       this.$http
       .get(`http://localhost:3000/api/v1/post/root/${this.$route.params.id}`)
@@ -67,7 +70,7 @@ export default {
         })
         .then(
           (response) => {
-            this.unliked = false;
+            this.disliked = false;
             console.log(response);
             localStorage.setItem(`reactId`,response.body.id)
             localStorage.setItem(`${this.$route.params.id}` , 'liked')

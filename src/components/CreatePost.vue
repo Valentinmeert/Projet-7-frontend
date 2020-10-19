@@ -22,6 +22,15 @@
         placeholder="Ajouter un contenu"
       />
     </div>
+    <div class="form-group">
+        <label for="file">Lien image</label>
+        <input
+          type="file"
+          id="file"
+          name="image"
+          @change="uploadImage"
+        />
+      </div>
     <input type="submit" value="createPost" />
   </form>
 </template>
@@ -32,6 +41,7 @@ export default {
     return {
       title: '',
       content: '',
+    selectedFile: null,
       
     };
   },
@@ -39,15 +49,19 @@ export default {
     createPost() {
       if (!this.title) return;
       if (!this.content) return;
-      const { title, content} = this;
+      const { title, content, file} = this;
+      let fd = new FormData();
+                fd.append('title', this.title);
+                fd.append('content', this.content);
+                fd.append('image', this.selectedFile);
+                console.log("test",fd.get('image'));
       this.$http
-        .post('http://localhost:3000/api/v1/post', {
-        title,
-        content,
-        },
+        .post('http://localhost:3000/api/v1/post', fd ,
         {
           headers: { 
-            authorization: 'Bearer ' + localStorage.getItem('jwt')
+            'Content-Type': 'multipart/form-data',
+            authorization: 'Bearer ' + localStorage.getItem('jwt'),
+            
           }
         })
         .then(
@@ -59,6 +73,10 @@ export default {
           }
         );
     },
+    uploadImage(evt) {
+this.selectedFile = event.target.files[0];
+console.log(event.target.files[0]);
+        }
   },
   
 };
