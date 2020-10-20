@@ -12,6 +12,7 @@ import User from './components/User.vue';
 import CreatePost from './components/CreatePost.vue';
 import UserUpdate from './components/UserUpdate.vue';
 import UpdatePassword from './components/UpdatePassword.vue';
+import CreateUserAsAdmin from './components/CreateUserAsAdmin.vue';
 
 Vue.use(VueResource);
 Vue.use(VuePaginate);
@@ -81,6 +82,14 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+  path: '/createUser',
+  component: CreateUserAsAdmin,
+  meta: {
+    requiresAuth: true,
+    },
+  },
+
 ];
 
 const router = new VueRouter({

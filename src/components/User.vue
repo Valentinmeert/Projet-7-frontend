@@ -11,7 +11,10 @@
       <router-link :to="'/updateUser/' + user.id">
         <div class="btn btn-primary">Modifier le profil</div>
       </router-link>
-        <div class="btn btn-danger" @click="destroy(user)">Supprimer le profil</div>
+        <div class="btn btn-danger" @click="destroyUser(user)">Supprimer le profil</div>
+        <router-link :to="'/createUser'" v-if="admin">
+          <div class="btn btn-success">Creer un User</div>
+        </router-link>
     </div>
   </div>
 <div class="col-sm-12">
@@ -23,7 +26,7 @@
           Voir le post
         </router-link>
         <router-link :to="'/'">
-          <div class="btn btn-primary" @click="destroy(post)">
+          <div class="btn btn-primary" @click="destroyPost(post)">
             Supprimer le post
           </div>
         </router-link>
@@ -61,10 +64,10 @@ export default {
       user: {},
       posts: [],
       paginate: ['posts'],
+      admin: false,
     };
   },
   created() {
-    console.log(localStorage.getItem('jwt'));
     this.$http
       .get(
         `http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}`,
@@ -72,13 +75,13 @@ export default {
           headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
         }
       )
-      .then(
-        (user) => user.json(),
-        (error) => console.log(error)
-      )
-      .then(
-        (json) => (this.user = json),
-        (error) => console.log(error)
+      .then((res) => {
+        const data = res.data;
+        this.user = data;
+        if (res.data.email === 'admin@admin.admin') {
+          this.admin = true;
+        }
+        }
       );
     this.$http
       .get(
@@ -97,7 +100,7 @@ export default {
       );
   },
   methods: {
-      destroy() {
+      destroyUser() {
       this.$http
         .delete(`http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}` , {
           headers: { authorization: 'Bearer ' + localStorage.getItem('jwt') }
@@ -107,6 +110,22 @@ export default {
           this.$router.push('/');
           window.alert('Votre compte a bien été supprimé !');
         });
+    },
+    destroyPost(post) {
+      this.$http
+        .delete(`http://localhost:3000/api/v1/post/${post.id}`)
+        .then(
+          (response) => response.json(),
+          (error) => console.log(error)
+        )
+        .then(
+          (json) => (this.posts = json),
+          (error) => console.log(error)
+        )
+        .then(
+          () => location.reload(),
+          (error) => console.log(error)
+        );
     }
   }
 };

@@ -49,11 +49,11 @@ export default {
     createPost() {
       if (!this.title) return;
       if (!this.content) return;
-      const { title, content, file} = this;
+      const { title, content, selectedFile} = this;
       let fd = new FormData();
                 fd.append('title', this.title);
                 fd.append('content', this.content);
-                fd.append('image', this.selectedFile);
+                fd.set('image', this.selectedFile, this.selectedFile.name);
                 console.log("test",fd.get('image'));
       this.$http
         .post('http://localhost:3000/api/v1/post', fd ,

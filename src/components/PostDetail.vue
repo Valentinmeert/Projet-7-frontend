@@ -3,10 +3,10 @@
     <h1>{{ post.title }}</h1>
     <h2>{{ post.content }}</h2>
     <h3>By: {{postUser.firstName}} {{postUser.lastName}}</h3>
-    <p><img  src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
     <div>
       <img :src="post.imageUrl" alt="" class="postImg">
     </div>
+    <p><img  src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
       <div class="btn btn-dark" @click="like()"  v-if="disliked">
             Like
           </div>
@@ -31,14 +31,11 @@ export default {
   created() {
     this.$http
       .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`)
-      .then(
-        (post) => post.json(),
-        (error) => console.log(error)
-      )
-      .then(
-        (json) => (this.post = json),
-        (error) => console.log(error)
-      )
+      .then(res => {
+        const data = res.data;
+        this.post = data;
+        console.log(data);
+      })
       this.$http
       .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}/react`)
       .then((data)=>
