@@ -48,8 +48,8 @@
       :async="true"
       :show-step-links="true"
       :step-links="{
-        next: 'Suivant',
-        prev: 'Précédent',
+        next: '->',
+        prev: '<-',
       }"
       :classes="{
         ul: 'pagination',

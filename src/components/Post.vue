@@ -1,7 +1,7 @@
 <template>
-  <div  class="text-center">
+  <div class="text-center">
     <paginate name="posts" :list="posts" :per="5" tag="div">
-      <div >
+      <div>
       <section v-for="post in paginated('posts')" :key="post.id">
         <router-link :to="'/post/' + post.id" ><h2>{{ post.title }}</h2></router-link>
         <h3>Created at : {{ post.createdAt }}</h3>
@@ -15,8 +15,8 @@
       :async="true"
       :show-step-links="true"
       :step-links="{
-        next: 'Suivant',
-        prev: 'Précédent',
+        next: '->',
+        prev: '<-',
       }"
       :classes="{
         ul: 'pagination',
