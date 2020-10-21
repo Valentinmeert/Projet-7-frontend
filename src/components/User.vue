@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="text-center">
   <div class="card" style="width: 500px">
     <div class="card-body">
       <h5 class="card-title">Your Profil</h5>
@@ -9,18 +9,24 @@
         <h3>{{ user.email }}</h3>
       </p>
       <router-link :to="'/updateUser/' + user.id">
-        <div class="btn btn-primary">Modifier le profil</div>
+        <div class="btn btn-primary">
+          Modifier le profil
+        </div>
       </router-link>
-        <div class="btn btn-danger" @click="destroyUser(user)">Supprimer le profil</div>
+        <div class="btn btn-danger" @click="destroyUser(user)">
+          Supprimer le profil
+        </div>
         <router-link :to="'/createUser'" v-if="admin">
-          <div class="btn btn-success">Creer un User</div>
+          <div class="btn btn-success">
+          Creer un User
+          </div>
         </router-link>
     </div>
   </div>
 <div class="col-sm-12">
     <paginate name="posts" :list="posts" :per="10" tag="div">
       <section v-for="post in paginated('posts')">
-        <h2>{{ post.title }}</h2>
+        <router-link :to="'/post/' + post.id" ><h2>{{ post.title }}</h2></router-link>
         <h3>Created at : {{ post.createdAt }}</h3>
         <router-link :to="'/post/' + post.id" class="btn btn-primary">
           Voir le post
@@ -130,4 +136,23 @@ export default {
   }
 };
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
+
+.page-item.active, .page-link{
+  background-color: #343A40 !important ; 
+}
+h3 {
+  font-family: 'Merienda', Helvetica, Arial;
+  font-size: 12px;
+}
+h2 {
+  font-family: 'Balsamiq Sans', cursive;
+}
+a:link {
+  color: black;
+  text-decoration: none;
+}
+</style>
 

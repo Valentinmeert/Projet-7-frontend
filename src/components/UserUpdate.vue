@@ -3,18 +3,14 @@
     <h1>Your new firstname : {{user.firstName}}</h1>
     <p>Your new lastname : {{user.lastName}}</p>
     <p>Your new email : {{user.email}}</p>
-
-    <nav aria-label="breadcrumb">
-      <router-link :to="'/'" class="btn btn-primary"> Home </router-link>
-      <router-link :to="'/'">
-        <button @click="save(user)" class="btn btn-primary">
+      <router-link :to="'/'" class="btn"> Home </router-link>
+      <router-link :to="'/'"
+        @click="save(user)" class="btn">
           Valider la modification
-        </button></router-link
-      >
-      <router-link :to="'/updatePassword/' + user.id" class="btn btn-primary">
+        </router-link>
+      <router-link :to="'/updatePassword/' + user.id" class="btn">
           Modifier votre mot de passe
         </router-link>
-    </nav>
   </article>
 </template>
 
@@ -92,4 +88,10 @@ export default {
 </script>
 
 <style>
+.btn {
+background: linear-gradient(to right, #ff5858, #f857a6);
+}
+a{
+  color:white
+}
 </style>

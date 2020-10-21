@@ -1,6 +1,6 @@
 <template>
-  <form @submit.prevent.stop="createPost">
-    <div class="col-4">
+<div class="text-center">
+  <form @submit.prevent.stop="createPost" class="form-text">
       <label for="title">Title</label>
       <textarea
         v-model="title"
@@ -10,8 +10,6 @@
         class="form-control"
         placeholder="Ajouter un titre"
       />
-    </div>
-    <div class="col-4">
       <label for="content">Content</label>
       <textarea
         v-model="content"
@@ -21,7 +19,6 @@
         class="form-control"
         placeholder="Ajouter un contenu"
       />
-    </div>
     <div class="form-group">
         <label for="file">Lien image</label>
         <input
@@ -31,8 +28,9 @@
           @change="uploadImage"
         />
       </div>
-    <input type="submit" value="createPost" />
+    <input class="btn btn-lg btn-block" type="submit" value="Create Post" />
   </form>
+  </div>
 </template>
 
 <script>
@@ -81,3 +79,51 @@ console.log(event.target.files[0]);
   
 };
 </script>
+<style>
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  -ms-flex-align: center;
+  /* align-items: center; */
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-text {
+  width: 100%;
+  max-width: 430px;
+  padding: 15px;
+  margin: auto;
+}
+.form-text .checkbox {
+  font-weight: 400;
+}
+.form-text .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-text .form-control:focus {
+  z-index: 2;
+}
+.form-text input[type='text'] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-text input[type='text'] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.btn {
+  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
+  color:white;
+}
+</style>

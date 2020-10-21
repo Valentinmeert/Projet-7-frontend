@@ -1,4 +1,5 @@
 <template>
+<div class="text-center">
   <article class="col-sm-12">
     <h1>{{ post.title }}</h1>
     <h2>{{ post.content }}</h2>
@@ -6,15 +7,18 @@
     <div>
       <img :src="post.imageUrl" alt="" class="postImg">
     </div>
-    <p><img  src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
-      <div class="btn btn-dark" @click="like()"  v-if="disliked">
-            Like
-          </div>
-      <div class="btn btn-dark" @click="unlike()" v-else >
-            Dislike
-          </div>
-
+    <p v-if="disliked"><img @click="like()"   src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
+    <p v-else><img @click="unlike()"  src="../assets/thumbgreen.png" alt="" width="50" height="50">{{likes}}</p>
   </article>
+  <router-link :to="'/'">
+          <div class="btn btn-success" @click="destroy(post)" v-if="admin">
+            Supprimer le post
+          </div>
+        </router-link>
+        <router-link :to="'/update/' + post.id" v-if="admin">
+          <div class="btn btn-success">Modifier le post</div>
+        </router-link>
+  </div>
 </template>
 
 <script>
@@ -26,6 +30,7 @@ export default {
       postUser: {},
       likes: '',
       disliked: '', 
+      admin: false,
     };
   },
   created() {
@@ -52,6 +57,19 @@ export default {
 .then((data)=>
       {
         this.postUser = data.body;
+      }),
+      this.$http
+      .get(
+        `http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}`,
+        {
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
+        }
+      )
+      .then((user) => {
+        console.log(user.body);
+        if (user.body.email === 'admin@admin.admin') {
+          this.admin = true;
+        }
       })
   },
   methods: {
@@ -93,6 +111,22 @@ export default {
           (response) => {
             console.log(response);
           }
+        );
+    },
+    destroy(post) {
+      this.$http
+        .delete(`http://localhost:3000/api/v1/post/${post.id}`)
+        .then(
+          (response) => response.json(),
+          (error) => console.log(error)
+        )
+        .then(
+          (json) => (this.posts = json),
+          (error) => console.log(error)
+        )
+        .then(
+          () => location.reload(),
+          (error) => console.log(error)
         );
     }
   }

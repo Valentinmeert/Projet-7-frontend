@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark ">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -70,6 +70,6 @@ export default {
 nav {
   margin-top: 0px;
   margin-bottom: 30px;
-  background-color: rgb(51, 119, 255);
+  background: linear-gradient(to right, #ff5858, #f857a6);
 }
 </style>
