@@ -48,11 +48,13 @@ export default {
       if (!this.title) return;
       if (!this.content) return;
       const { title, content, selectedFile} = this;
+      
       let fd = new FormData();
-                fd.append('title', this.title);
-                fd.append('content', this.content);
-                fd.set('image', this.selectedFile, this.selectedFile.name);
-                console.log("test",fd.get('image'));
+      fd.append('title', this.title);
+      fd.append('content', this.content);
+      if (this.selectedFile){
+      fd.set('image', this.selectedFile, this.selectedFile.name);
+      }
       this.$http
         .post('http://localhost:3000/api/v1/post', fd ,
         {

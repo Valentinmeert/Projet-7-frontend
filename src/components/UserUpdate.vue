@@ -1,13 +1,12 @@
 <template>
-  <article class="col-sm-12">
-    <h1>Your new firstname : {{user.firstName}}</h1>
-    <p>Your new lastname : {{user.lastName}}</p>
-    <p>Your new email : {{user.email}}</p>
-      <router-link :to="'/'" class="btn"> Home </router-link>
-      <router-link :to="'/'"
+  <article class="col-sm-12 text-center">
+    <p>Your new firstname : <input v-model="user.firstName" /></p>
+    <p>Your new lastname : <input v-model="user.lastName" /></p>
+    <p>Your new email : <input v-model="user.email" /></p>
+      <div
         @click="save(user)" class="btn">
           Valider la modification
-        </router-link>
+        </div>
       <router-link :to="'/updatePassword/' + user.id" class="btn">
           Modifier votre mot de passe
         </router-link>
@@ -64,10 +63,11 @@ export default {
     save(user) {
       this.$http
         .put(
-          `http://localhost:3000/api/v1/user/${user.id}`,
+          `http://localhost:3000/api/v1/user/${this.$route.params.id}`,
           {
             firstName: user.firstName,
             lastName: user.lastName,
+            email: user.email
           },
           {
             headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
@@ -77,6 +77,7 @@ export default {
           (response) => {
             this.user = response.data;
             window.alert('Votre profil a bien été modifié !');
+            this.$router.push('/');
           },
           (response) => {
             console.log('error');
