@@ -12,6 +12,7 @@
       <label for="inputFirstName" class="sr-only">First Name</label>
       <input v-model="firstName" type="text" name="firstName" id="inputFirstName"
         class="form-control"
+        pattern="[a-zA-Z -]{1,20}"
         placeholder="First Name"
         required
         autofocus/>
@@ -19,6 +20,7 @@
       <label for="inputLastName" class="sr-only">Last Name</label>
         <input 
         v-model="lastName" 
+        pattern="[a-zA-Z -]{1,20}"
         type="text" 
         name="lastName" 
         id="inputLastName"
@@ -30,6 +32,7 @@
       <label for="inputEmail" class="sr-only">Email</label>
       <input
         v-model="email"
+        pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,25}"
         type="email"
         name="email"
         id="inputEmail"
@@ -43,6 +46,7 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input
           v-model="password"
+          pattern=".{8,}"
           type="password"
           id="inputPassword"
           class="form-control"

@@ -12,6 +12,7 @@
       <label for="inputEmail" class="sr-only">Email</label>
       <input
         v-model="email"
+        pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,25}"
         type="email"
         name="email"
         id="inputEmail"
@@ -24,6 +25,7 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input
           v-model="password"
+          pattern=".{8,}"
           type="password"
           id="inputPassword"
           class="form-control"
