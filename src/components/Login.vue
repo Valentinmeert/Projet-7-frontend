@@ -64,6 +64,7 @@ export default {
           localStorage.clear();
           localStorage.setItem('jwt', data.body.token);
           localStorage.setItem('userId', data.body.userId);
+          this.$router.push('/');
         });
     },
   },

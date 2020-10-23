@@ -1,6 +1,6 @@
 <template>
 <div class="text-center">
-  <div class="card" style="width: 500px">
+  <div class="card " style="width: 500px ">
     <div class="card-body">
       <h5 class="card-title">Your Profil</h5>
       <p class="card-text">
@@ -9,15 +9,15 @@
         <h3>{{ user.email }}</h3>
       </p>
       <router-link :to="'/updateUser/' + user.id">
-        <div class="btn btn-primary">
+        <div class="btn">
           Modifier le profil
         </div>
       </router-link>
-        <div class="btn btn-danger" @click="destroyUser(user)">
+        <div class="btn" @click="destroyUser(user)">
           Supprimer le profil
         </div>
         <router-link :to="'/createUser'" v-if="admin">
-          <div class="btn btn-success">
+          <div class="btn">
           Creer un User
           </div>
         </router-link>
@@ -28,16 +28,16 @@
       <section v-for="post in paginated('posts')">
         <router-link :to="'/post/' + post.id" ><h2>{{ post.title }}</h2></router-link>
         <h3>Created at : {{ post.createdAt }}</h3>
-        <router-link :to="'/post/' + post.id" class="btn btn-primary">
+        <router-link :to="'/post/' + post.id" class="btn ">
           Voir le post
         </router-link>
         <router-link :to="'/'">
-          <div class="btn btn-primary" @click="destroyPost(post)">
+          <div class="btn " @click="destroyPost(post)">
             Supprimer le post
           </div>
         </router-link>
         <router-link :to="'/updatePost/' + post.id">
-          <div class="btn btn-primary">Modifier le post</div>
+          <div class="btn ">Modifier le post</div>
         </router-link>
         <hr />
       </section>
@@ -141,7 +141,8 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
 
 .page-item.active, .page-link{
-  background-color: #343A40 !important ; 
+  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
+  color:white;
 }
 h3 {
   font-family: 'Merienda', Helvetica, Arial;
@@ -153,6 +154,10 @@ h2 {
 a:link {
   color: black;
   text-decoration: none;
+}
+.btn {
+  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
+  color:white;
 }
 </style>
 

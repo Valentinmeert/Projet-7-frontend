@@ -11,12 +11,12 @@
     <p v-else><img @click="unlike()"  src="../assets/thumbgreen.png" alt="" width="50" height="50">{{likes}}</p>
   </article>
   <router-link :to="'/'">
-          <div class="btn btn-success" @click="destroy(post)" v-if="admin">
+          <div class="btn" @click="destroy(post)" v-if="admin">
             Supprimer le post
           </div>
         </router-link>
         <router-link :to="'/update/' + post.id" v-if="admin">
-          <div class="btn btn-success">Modifier le post</div>
+          <div class="btn">Modifier le post</div>
         </router-link>
   </div>
 </template>
@@ -134,4 +134,26 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
+
+.page-item.active, .page-link{
+  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
+  color:white;
+}
+h3 {
+  font-family: 'Merienda', Helvetica, Arial;
+  font-size: 12px;
+}
+h2 {
+  font-family: 'Balsamiq Sans', cursive;
+}
+a:link {
+  color: black;
+  text-decoration: none;
+}
+.btn {
+  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
+  color:white;
+}
 </style>
