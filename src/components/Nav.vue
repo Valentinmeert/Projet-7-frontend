@@ -8,22 +8,12 @@
     </a>
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
       <ul class="navbar-nav">
-        <li class="nav-item active">
+        <li class="nav-item active" v-if="connected">
           <router-link to="/" class="nav-link" 
             >Home</router-link
           >
         </li>
-        <li class="nav-item active">
-          <router-link to="/signup" class="nav-link" 
-            >Signup</router-link
-          >
-        </li>
-        <li class="nav-item active">
-          <router-link to="/login" class="nav-link" 
-            >Login</router-link
-          >
-        </li>
-        <li class="nav-item active">
+        <li class="nav-item active" v-if="connected">
           <router-link
             :to="'/user/' + user"
             class="nav-link" 
@@ -31,12 +21,22 @@
             >My Profil</router-link
           >
         </li>
-        <li class="nav-item active" >
+        <li class="nav-item active" v-if="connected">
           <router-link to="/create" class="nav-link" 
             >Create Post</router-link
           >
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" v-if="disconnected">
+          <router-link to="/signup" class="nav-link" 
+            >Signup</router-link
+          >
+        </li>
+        <li class="nav-item active" v-if="disconnected">
+          <router-link to="/login" class="nav-link" 
+            >Login</router-link
+          >
+        </li>
+        <li class="nav-item active" v-if="connected">
           <router-link
             :to="'/login'"
             class="nav-link"
@@ -54,10 +54,17 @@ export default {
   data(){
     return {
       user: localStorage.getItem('userId'),
+      connected: false,
+      disconnected: true,
     };
   },
   
-
+created() {
+if (localStorage.getItem('userId')){
+  this.connected = true;
+  this.disconnected = false;
+}
+},
   methods: {
     disconect() {
       localStorage.clear().then(next());

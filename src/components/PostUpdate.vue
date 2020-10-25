@@ -1,15 +1,19 @@
 <template>
-  <article class="col-sm-12 text-center" >
+  <article class="text-center form-text" >
     <label for="title">Title</label>
-    <p><textarea v-model="post.title" type="text"
-        name="title"
-        
-        class="form-control"/></p>
+    <p><textarea 
+    v-model="post.title" 
+    required
+    type="text"
+    name="title"
+    class="form-control"/></p>
         <label for="content">Content</label>
-    <p><textarea v-model="post.content" type="text"
-        name="content"
-        required
-        class="form-control" /></p>
+    <p><textarea 
+    v-model="post.content"
+    type="text"
+    name="content"
+    required
+    class="form-control" /></p>
         <div class="form-group">
         <label for="file">Lien image</label>
         <input

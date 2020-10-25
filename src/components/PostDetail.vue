@@ -3,21 +3,21 @@
   <article class="col-sm-12">
     <h1>{{ post.title }}</h1>
     <h2>{{ post.content }}</h2>
-    <h3>By: {{postUser.firstName}} {{postUser.lastName}}</h3>
-    <div>
+    <div v-if="post.imageUrl">
       <img :src="post.imageUrl" alt="" class="postImg">
     </div>
+    <h3>By: {{postUser.firstName}} {{postUser.lastName}}</h3>
     <p v-if="disliked"><img @click="like()"   src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
     <p v-else><img @click="unlike()"  src="../assets/thumbgreen.png" alt="" width="50" height="50">{{likes}}</p>
   </article>
   <router-link :to="'/'">
-          <div class="btn" @click="destroy(post)" v-if="admin">
-            Supprimer le post
-          </div>
-        </router-link>
-        <router-link :to="'/update/' + post.id" v-if="admin">
-          <div class="btn">Modifier le post</div>
-        </router-link>
+    <div class="btn" @click="destroy(post)" v-if="admin">
+      Supprimer le post
+    </div>
+  </router-link>
+  <router-link :to="'/updatePost/' + post.id" v-if="admin">
+    <div class="btn">Modifier le post</div>
+  </router-link>
   </div>
 </template>
 
@@ -136,17 +136,18 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Eczar:wght@500&display=swap');
 .page-item.active, .page-link{
   background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
   color:white;
 }
 h3 {
   font-family: 'Merienda', Helvetica, Arial;
-  font-size: 12px;
+  font-size: 1em;
 }
 h2 {
-  font-family: 'Balsamiq Sans', cursive;
+  font-family: 'Eczar', serif;
 }
 a:link {
   color: black;
@@ -155,5 +156,12 @@ a:link {
 .btn {
   background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
   color:white;
+}
+h1 {
+  font-family: 'Staatliches', cursive;
+}
+.postImg {
+  min-width: 200px;
+  min-height: 200px;
 }
 </style>

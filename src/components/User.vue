@@ -24,6 +24,8 @@
     </div>
   </div>
 <div class="col-sm-12">
+  <h1>Your posts</h1>
+  <hr />
     <paginate name="posts" :list="posts" :per="10" tag="div">
       <section v-for="post in paginated('posts')">
         <router-link :to="'/post/' + post.id" ><h2>{{ post.title }}</h2></router-link>
@@ -139,7 +141,8 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Eczar:wght@500&display=swap');
 .page-item.active, .page-link{
   background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
   color:white;
@@ -149,7 +152,7 @@ h3 {
   font-size: 12px;
 }
 h2 {
-  font-family: 'Balsamiq Sans', cursive;
+  font-family: 'Eczar', serif;
 }
 a:link {
   color: black;
@@ -158,6 +161,9 @@ a:link {
 .btn {
   background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
   color:white;
+}
+h1 {
+  font-family: 'Staatliches', cursive;
 }
 </style>
 
