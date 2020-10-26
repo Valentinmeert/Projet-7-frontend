@@ -8,7 +8,7 @@
         <h2>{{ user.firstName }}</h2>
         <h3>{{ user.email }}</h3>
       </p>
-      <router-link :to="'/updateUser/' + user.id">
+      <router-link :to="`/user/${user.id}/update/`">
         <div class="btn">
           Modifier le profil
         </div>

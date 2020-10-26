@@ -71,7 +71,11 @@ export default {
         }
       }),
       this.$http
-        .get('http://localhost:3000/api/v1/post/root')
+        .get('http://localhost:3000/api/v1/post/root',
+        {
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        }
+        )
         .then(
           (response) => response.json(),
           (error) => console.log(error)

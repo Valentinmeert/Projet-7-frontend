@@ -69,7 +69,7 @@ const routes = [
     },
   },
   {
-    path: '/updateUser/:id',
+    path: '/user/:id/update',
     component: UserUpdate,
     meta: {
       requiresAuth: true,
