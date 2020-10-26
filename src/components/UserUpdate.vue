@@ -1,8 +1,31 @@
 <template>
-  <article class="col-sm-12 text-center">
-    <p>Your new firstname : <input v-model="user.firstName" /></p>
-    <p>Your new lastname : <input v-model="user.lastName" /></p>
-    <p>Your new email : <input v-model="user.email" /></p>
+<div class="text-center">
+  <article class="form-text text-center">
+    <label for="firstName">First Name :</label>
+    <input 
+    pattern="[a-zA-Z -]{1,20}" 
+    v-model="user.firstName" 
+    required
+    type="text"
+    name="firstName"
+    class="form-control"/>
+    <label for="lastName">Last Name :</label>
+    <input 
+    v-model="user.lastName" 
+    pattern="[a-zA-Z -]{1,20}"
+    required
+    type="text"
+    name="lastName"
+    class="form-control"/>
+    <label for="lastName">Email :</label>
+    <input 
+    v-model="user.email"
+    pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,25}"
+    required
+    type="text"
+    name="email"
+    class="form-control"/>
+    </article>
       <div
         @click="save(user)" class="btn">
           Valider la modification
@@ -10,7 +33,8 @@
       <router-link :to="'/updatePassword/' + user.id" class="btn">
           Modifier votre mot de passe
         </router-link>
-  </article>
+  
+  </div>
 </template>
 
 <script>
@@ -89,10 +113,47 @@ export default {
 </script>
 
 <style>
-.btn {
-background: linear-gradient(to right, #ff5858, #f857a6);
+html,
+body {
+  height: 100%;
 }
-a{
-  color:white
+
+body {
+  display: -ms-flexbox;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-text {
+  width: 100%;
+  max-width: 430px;
+  padding: 15px;
+  margin: auto;
+}
+.form-text .checkbox {
+  font-weight: 400;
+}
+.form-text .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-text .form-control:focus {
+  z-index: 2;
+}
+
+.form-text input[type='text'] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn {
+  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
+  color:white;
 }
 </style>

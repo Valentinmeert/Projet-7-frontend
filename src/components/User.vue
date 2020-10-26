@@ -30,9 +30,6 @@
       <section v-for="post in paginated('posts')">
         <router-link :to="'/post/' + post.id" ><h2>{{ post.title }}</h2></router-link>
         <h3>Created at : {{ post.createdAt }}</h3>
-        <router-link :to="'/post/' + post.id" class="btn ">
-          Voir le post
-        </router-link>
         <router-link :to="'/'">
           <div class="btn " @click="destroyPost(post)">
             Supprimer le post

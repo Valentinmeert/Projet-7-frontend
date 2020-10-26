@@ -3,6 +3,9 @@
   <form @submit.prevent.stop="createPost" class="form-text">
       <label for="title">Title</label>
       <textarea
+      autofocus
+      minlength="1"
+      maxlength="40"
         v-model="title"
         type="text"
         name="title"
@@ -10,8 +13,13 @@
         class="form-control"
         placeholder="Ajouter un titre"
       />
+      <small id="passwordHelpBlockTitle" class="form-text text-muted">
+  Your title must be 1-40 characters long
+</small>
       <label for="content">Content</label>
       <textarea
+      minlength="1"
+      maxlength="40"
         v-model="content"
         type="text"
         name="content"
@@ -19,6 +27,9 @@
         class="form-control"
         placeholder="Ajouter un contenu"
       />
+      <small id="passwordHelpBlockContent" class="form-text text-muted">
+  Your content must be 1-400 characters long
+</small>
     <div class="form-group">
         <label for="file">Lien image</label>
         <input
@@ -66,6 +77,7 @@ export default {
         })
         .then(
           (response) => {
+            window.alert('Votre post a bien été posté !');
             this.$router.push('/');
           },
           (response) => {

@@ -1,12 +1,16 @@
 <template>
 <div class="text-center">
-  <article class="col-sm-12">
+  <article class="col-sm-12 w-50 m-auto">
     <h1>{{ post.title }}</h1>
+    <hr />
     <h2>{{ post.content }}</h2>
+    <hr />
     <div v-if="post.imageUrl">
       <img :src="post.imageUrl" alt="" class="postImg">
     </div>
+    <hr />
     <h3>By: {{postUser.firstName}} {{postUser.lastName}}</h3>
+    <hr />
     <p v-if="disliked"><img @click="like()"   src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
     <p v-else><img @click="unlike()"  src="../assets/thumbgreen.png" alt="" width="50" height="50">{{likes}}</p>
   </article>
@@ -161,7 +165,7 @@ h1 {
   font-family: 'Staatliches', cursive;
 }
 .postImg {
-  min-width: 200px;
-  min-height: 200px;
+  width: 200px;
+  height: 200px;
 }
 </style>

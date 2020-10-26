@@ -1,5 +1,5 @@
 <template>
-  <article class="text-center form-text" >
+  <article class="text-center form-text">
     <label for="title">Title</label>
     <p><textarea 
     v-model="post.title" 
@@ -23,10 +23,8 @@
           @change="uploadImage"
         />
       </div>
-
     <div @click="save(post)" class="btn">
           Valider la modification
-
       <router-link :to="'/'">
         </router-link
       >

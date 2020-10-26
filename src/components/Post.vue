@@ -4,7 +4,7 @@
       <div>
       <section v-for="post in paginated('posts')" :key="post.id">
         <router-link :to="'/post/' + post.id" ><h1>{{ post.title }}</h1></router-link>
-        <div v-if="post.imageUrl"><img :src="post.imageUrl" class="postImg" width="50" height="50"></div>
+        <div v-if="post.imageUrl"><img :src="post.imageUrl" class="postImage" width="50" height="50"></div>
         <h3>Created at : {{ post.createdAt }}</h3>
         <hr />
       </section>
@@ -77,7 +77,7 @@ a:link {
   color: black;
   text-decoration: none;
 }
-.postImg {
+.postImage {
   width: 50px;
   height: 50px;
 }

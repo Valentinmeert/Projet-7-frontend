@@ -80,6 +80,7 @@ export default {
           password,
         })
         .then(() => {
+          window.alert('Le profil a bien été crée !');
           this.$router.push('/');
         });
     },

@@ -86,6 +86,8 @@ export default {
         .then((data) => {
           localStorage.setItem('jwt', data.body.token);
           localStorage.setItem('userId', data.body.userId);
+          window.alert('Votre compte a bien été crée');
+          this.$router.push('/');
         });
     },
   },

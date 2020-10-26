@@ -3,8 +3,8 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-      <a class="navbar-brand" href="/">
-<img  src="../assets/icon-left-font-monochrome-white.svg" alt="" width="100" height="100">
+    <a class="navbar-brand" href="/">
+      <img src="../assets/icon-left-font-monochrome-white.svg" alt="" width="100" height="100">
     </a>
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
       <ul class="navbar-nav">
@@ -41,7 +41,7 @@
             :to="'/login'"
             class="nav-link"
           >
-            <div @click="disconect()">Logout</div>
+            <div @click="disconnect()">Logout</div>
           </router-link>
         </li>
       </ul>
@@ -66,8 +66,10 @@ if (localStorage.getItem('userId')){
 }
 },
   methods: {
-    disconect() {
-      localStorage.clear().then(next());
+    disconnect() {
+      location.reload();
+      localStorage.clear();
+      this.$router.push('/login');
     },
   },
 };
