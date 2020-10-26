@@ -84,10 +84,10 @@ export default {
           password,
         })
         .then((data) => {
-          localStorage.setItem('jwt', data.body.token);
-          localStorage.setItem('userId', data.body.userId);
+          sessionStorage.setItem('jwt', data.body.token);
+          sessionStorage.setItem('userId', data.body.userId);
           window.alert('Votre compte a bien été crée');
-          this.$router.push('/');
+          document.location.href="/";
         });
     },
   },

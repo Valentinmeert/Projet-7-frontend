@@ -31,10 +31,10 @@ export default {
           password: newPassword,
         },
         {
-          headers: { authorization: 'Bearer ' + localStorage.getItem('jwt') }
+          headers: { authorization: 'Bearer ' + sessionStorage.getItem('jwt') }
         })
         .then((data) => {
-          localStorage.clear();
+          sessionStorage.clear();
           this.$router.push('/');
           window.alert('Votre mot de passe a bien été modifié !');
           

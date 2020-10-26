@@ -47,7 +47,7 @@ export default {
   created() {
     this.$http
       .get(`http://localhost:3000/api/v1/user/${this.$route.params.id}`, {
-        headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
+        headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
       })
 
       .then(
@@ -60,13 +60,12 @@ export default {
       );
     this.$http
       .get(
-        `http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}`,
+        `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`,
         {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
         }
       )
       .then((user) => {
-        console.log(user.body);
         if (user.body.email === 'admin@admin.admin') {
           this.admin = true;
         }
@@ -94,7 +93,7 @@ export default {
             email: user.email
           },
           {
-            headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
+            headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
           }
         )
         .then(

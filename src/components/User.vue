@@ -75,9 +75,9 @@ export default {
   created() {
     this.$http
       .get(
-        `http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}`,
+        `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`,
         {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
         }
       )
       .then((res) => {
@@ -90,9 +90,9 @@ export default {
       );
     this.$http
       .get(
-        `http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}/post`,
+        `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}/post`,
         {
-          headers: { authorization: 'Bearer ' + localStorage.getItem('jwt') },
+          headers: { authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
         }
       )
       .then(
@@ -107,11 +107,11 @@ export default {
   methods: {
       destroyUser() {
       this.$http
-        .delete(`http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}` , {
-          headers: { authorization: 'Bearer ' + localStorage.getItem('jwt') }
+        .delete(`http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}` , {
+          headers: { authorization: 'Bearer ' + sessionStorage.getItem('jwt') }
         })
         .then((data) => {
-          localStorage.clear();
+          sessionStorage.clear();
           this.$router.push('/');
           window.alert('Votre compte a bien été supprimé !');
         });

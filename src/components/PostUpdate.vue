@@ -65,7 +65,7 @@ export default {
         {
           headers: { 
             'Content-Type': 'multipart/form-data',
-            authorization: 'Bearer ' + localStorage.getItem('jwt'),
+            authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
             
           }
         })
@@ -80,7 +80,6 @@ export default {
     },
     uploadImage(evt) {
 this.selectedFile = event.target.files[0];
-console.log(event.target.files[0]);
         }
   },
 };

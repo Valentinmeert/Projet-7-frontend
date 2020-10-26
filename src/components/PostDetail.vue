@@ -39,38 +39,49 @@ export default {
   },
   created() {
     this.$http
-      .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`)
+      .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`,
+      {
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        })
       .then(res => {
         const data = res.data;
         this.post = data;
-        console.log(data);
       })
+
       this.$http
-      .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}/react`)
+      .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}/react`,
+      {
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        })
       .then((data)=>
       {
         this.likes = Object.keys(data.data).length;
       })
-      if(!localStorage.getItem(`${this.$route.params.id}`)){
+      if(!sessionStorage.getItem(`${this.$route.params.id}`)){
         this.disliked = true;
       } else {
         this.disliked = false;
       }
+
       this.$http
-      .get(`http://localhost:3000/api/v1/post/root/${this.$route.params.id}`)
+      .get(`http://localhost:3000/api/v1/post/root/${this.$route.params.id}`,
+      {
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        })
 .then((data)=>
       {
+        console.log(this.$route.params.id)
         this.postUser = data.body;
       }),
+
       this.$http
       .get(
-        `http://localhost:3000/api/v1/user/${localStorage.getItem('userId')}`,
+        `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`,
         {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') },
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
         }
       )
       .then((user) => {
-        console.log(user.body);
         if (user.body.email === 'admin@admin.admin') {
           this.admin = true;
         }
@@ -85,14 +96,14 @@ export default {
           type: "like",
         },
         {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') }
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') }
         })
         .then(
           (response) => {
             this.disliked = false;
             console.log(response);
-            localStorage.setItem(`reactId`,response.body.id)
-            localStorage.setItem(`${this.$route.params.id}` , 'liked')
+            sessionStorage.setItem(`reactId`,response.body.id)
+            sessionStorage.setItem(`${this.$route.params.id}` , 'liked')
             location.reload();
           },
           (response) => {
@@ -103,13 +114,13 @@ export default {
         unlike(){
       this.$http
       .delete(
-        `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/` + localStorage.getItem('reactId'),
+        `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/` + sessionStorage.getItem('reactId'),
         {
-          headers: { Authorization: 'Bearer ' + localStorage.getItem('jwt') }
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') }
         })
         .then(
           (response) => {
-            localStorage.removeItem(`${this.$route.params.id}`)
+            sessionStorage.removeItem(`${this.$route.params.id}`)
             location.reload();
           },
           (response) => {
@@ -119,7 +130,10 @@ export default {
     },
     destroy(post) {
       this.$http
-        .delete(`http://localhost:3000/api/v1/post/${post.id}`)
+        .delete(`http://localhost:3000/api/v1/post/${post.id}`,
+        {
+          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        })
         .then(
           (response) => response.json(),
           (error) => console.log(error)

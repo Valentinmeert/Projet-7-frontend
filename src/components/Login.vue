@@ -51,11 +51,9 @@ export default {
   },
   methods: {
     login() {
-      
       if (!this.email) return;
       if (!this.password) return;
       const { email, password } = this;
-      console.log("debug");
       this.$http
         .post('http://localhost:3000/api/v1/user/login', {
           email,
@@ -63,11 +61,11 @@ export default {
         })
         .then((data) => {
           
-          localStorage.clear();
-          localStorage.setItem('jwt', data.body.token);
-          localStorage.setItem('userId', data.body.userId);
+          sessionStorage.clear();
+          sessionStorage.setItem('jwt', data.body.token);
+          sessionStorage.setItem('userId', data.body.userId);
           window.alert('Bienvenue');
-          this.$router.push('/');
+          document.location.href="/";
         });
     },
   },

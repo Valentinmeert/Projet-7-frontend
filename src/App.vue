@@ -2,7 +2,6 @@
 <template>
   <div id="app">
     <Nav />
-    
     <router-view />
   </div>
 </template>
@@ -17,8 +16,6 @@ export default {
   },
   data(){
     return{
-    test : localStorage.getItem("jwt"),
-    
   }
   }
 };

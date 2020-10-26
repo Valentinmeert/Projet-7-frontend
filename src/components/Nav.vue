@@ -53,14 +53,15 @@ export default {
   name: 'Nav',
   data(){
     return {
-      user: localStorage.getItem('userId'),
+      user: sessionStorage.getItem('userId'),
       connected: false,
       disconnected: true,
     };
   },
   
 created() {
-if (localStorage.getItem('userId')){
+if (sessionStorage.getItem('userId')){
+  
   this.connected = true;
   this.disconnected = false;
 }
@@ -68,7 +69,7 @@ if (localStorage.getItem('userId')){
   methods: {
     disconnect() {
       location.reload();
-      localStorage.clear();
+      sessionStorage.clear();
       this.$router.push('/login');
     },
   },

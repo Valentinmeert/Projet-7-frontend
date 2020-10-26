@@ -83,13 +83,12 @@ const routes = [
     },
   },
   {
-  path: '/createUser',
-  component: CreateUserAsAdmin,
-  meta: {
-    requiresAuth: true,
+    path: '/createUser',
+    component: CreateUserAsAdmin,
+    meta: {
+      requiresAuth: true,
     },
   },
-
 ];
 
 const router = new VueRouter({
@@ -99,7 +98,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (!to.matched.some((record) => record.meta.requiresAuth)) return next();
-  if (localStorage.getItem('jwt') !== null) return next();
+  if (sessionStorage.getItem('jwt') !== null) return next();
   next({
     path: '/login',
     params: {
