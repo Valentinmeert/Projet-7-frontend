@@ -1,11 +1,6 @@
 module.exports = {
-  extends: [
-    'airbnb',
-    "plugin:vue/recommended",
-  ],
-  plugins: [
-    'prettier',
-  ],
+  extends: ['airbnb-base', 'plugin:vue/recommended'],
+  plugins: ['prettier'],
   settings: {
     'import/resolver': {
       alias: {
