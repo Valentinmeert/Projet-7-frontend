@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <Nav />
@@ -14,10 +13,10 @@ export default {
   components: {
     Nav,
   },
-  data(){
-    return{
-  }
-  }
+  data() {
+    return {
+    };
+  },
 };
 </script>
 
