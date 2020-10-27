@@ -156,28 +156,36 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Eczar:wght@500&display=swap');
-.page-item.active, .page-link{
-  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
-  color:white;
+
+.page-item.active,
+.page-link {
+  background: linear-gradient(to right, #ff5858, #f857a6) !important;
+  color: white;
 }
+
 h3 {
   font-family: 'Merienda', Helvetica, Arial;
   font-size: 1em;
 }
+
 h2 {
   font-family: 'Eczar', serif;
 }
+
 a:link {
   color: black;
   text-decoration: none;
 }
+
 .btn {
-  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
-  color:white;
+  background: linear-gradient(to right, #ff5858, #f857a6) !important;
+  color: white;
 }
+
 h1 {
   font-family: 'Staatliches', cursive;
 }
+
 .postImg {
   width: 200px;
   height: 200px;

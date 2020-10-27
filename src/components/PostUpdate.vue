@@ -94,7 +94,6 @@ body {
 body {
   display: -ms-flexbox;
   -ms-flex-align: center;
-  /* align-items: center; */
   padding-bottom: 40px;
   background-color: #f5f5f5;
 }
@@ -105,9 +104,11 @@ body {
   padding: 15px;
   margin: auto;
 }
+
 .form-text .checkbox {
   font-weight: 400;
 }
+
 .form-text .form-control {
   position: relative;
   box-sizing: border-box;
@@ -115,21 +116,25 @@ body {
   padding: 10px;
   font-size: 16px;
 }
+
 .form-text .form-control:focus {
   z-index: 2;
 }
+
 .form-text input[type='text'] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
 .form-text input[type='text'] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
 .btn {
-  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
-  color:white;
+  background: linear-gradient(to right, #ff5858, #f857a6) !important;
+  color: white;
 }
 </style>

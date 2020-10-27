@@ -65,25 +65,32 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Eczar:wght@500&display=swap');
-.page-item.active, .page-link{
-  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
-  color:white;
+
+.page-item.active,
+.page-link {
+  background: linear-gradient(to right, #ff5858, #f857a6) !important; 
+  color: white;
 }
+
 h3 {
   font-family: 'Merienda', Helvetica, Arial;
   font-size: 0.8em;
 }
+
 h2 {
   font-family: 'Balsamiq Sans', cursive;
 }
+
 a:link {
   color: black;
   text-decoration: none;
 }
+
 .postImage {
   width: 50px;
   height: 50px;
 }
+
 h1 {
   font-family: 'Staatliches', cursive;
 }

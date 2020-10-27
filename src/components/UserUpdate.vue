@@ -135,9 +135,11 @@ body {
   padding: 15px;
   margin: auto;
 }
+
 .form-text .checkbox {
   font-weight: 400;
 }
+
 .form-text .form-control {
   position: relative;
   box-sizing: border-box;
@@ -145,6 +147,7 @@ body {
   padding: 10px;
   font-size: 16px;
 }
+
 .form-text .form-control:focus {
   z-index: 2;
 }
@@ -156,7 +159,7 @@ body {
 }
 
 .btn {
-  background: linear-gradient(to right, #ff5858, #f857a6) !important ; 
-  color:white;
+  background: linear-gradient(to right, #ff5858, #f857a6) !important; 
+  color: white;
 }
 </style>
