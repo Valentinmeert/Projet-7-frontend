@@ -1,6 +1,6 @@
 <template>
 <div class="text-center">
-  <div class="card " style="width: 500px ">
+  <div class="card m-auto" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Your Profil</h5>
       <p class="card-text">
