@@ -1,10 +1,12 @@
 # frontend
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4d8687de8dce41a1a898c61dbc68e1da)](https://www.codacy.com/gh/Valentinmeert/frontend/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Valentinmeert/frontend&utm_campaign=Badge_Grade)
+
 > A Vue.js project
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
