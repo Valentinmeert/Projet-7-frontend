@@ -96,12 +96,10 @@ export default {
         }
       )
       .then(
-        (response) => response.json(),
-        (error) => console.log(error)
+        (response) => response.json()
       )
       .then(
-        (json) => (this.posts = json),
-        (error) => console.log(error)
+        (json) => (this.posts = json)
       );
   },
   methods: {
@@ -120,16 +118,13 @@ export default {
       this.$http
         .delete(`http://localhost:3000/api/v1/post/${post.id}`)
         .then(
-          (response) => response.json(),
-          (error) => console.log(error)
+          (response) => response.json()
         )
         .then(
-          (json) => (this.posts = json),
-          (error) => console.log(error)
+          (json) => (this.posts = json)
         )
         .then(
-          () => location.reload(),
-          (error) => console.log(error)
+          () => location.reload()
         );
     }
   }

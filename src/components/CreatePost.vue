@@ -78,9 +78,6 @@ export default {
           (response) => {
             window.alert('Votre post a bien été posté !');
             this.$router.push('/');
-          },
-          (response) => {
-            console.log(response);
           }
         );
     },

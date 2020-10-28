@@ -70,7 +70,6 @@ export default {
         })
 .then((data)=>
       {
-        console.log(this.$route.params.id)
         this.postUser = data.body;
       }),
 
@@ -101,13 +100,9 @@ export default {
         .then(
           (response) => {
             this.disliked = false;
-            console.log(response);
             sessionStorage.setItem(`reactId`,response.body.id)
             sessionStorage.setItem(`${this.$route.params.id}` , 'liked')
             location.reload();
-          },
-          (response) => {
-            console.log(response);
           }
         );
     },
@@ -122,9 +117,6 @@ export default {
           (response) => {
             sessionStorage.removeItem(`${this.$route.params.id}`)
             location.reload();
-          },
-          (response) => {
-            console.log(response);
           }
         );
     },
@@ -135,16 +127,13 @@ export default {
           headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
         })
         .then(
-          (response) => response.json(),
-          (error) => console.log(error)
+          (response) => response.json()
         )
         .then(
-          (json) => (this.posts = json),
-          (error) => console.log(error)
+          (json) => (this.posts = json)
         )
         .then(
-          () => location.reload(),
-          (error) => console.log(error)
+          () => location.reload()
         );
     }
   }

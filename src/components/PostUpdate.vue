@@ -44,12 +44,10 @@ export default {
     this.$http
       .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`)
       .then(
-        (post) => post.json(),
-        (error) => console.log(error)
+        (post) => post.json()
       )
       .then(
-        (json) => (this.post = json),
-        (error) => console.log(error)
+        (json) => (this.post = json)
       );
   },
   methods: {
@@ -72,9 +70,6 @@ export default {
         .then(
           (response) => {
             this.$router.push('/');
-          },
-          (response) => {
-            console.log('error');
           }
         );
     },

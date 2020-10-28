@@ -2,7 +2,7 @@
   <div class="text-center">
     <paginate name="posts" :list="posts" :per="5" tag="div">
       <div>
-      <section v-for="post in paginated('posts')" :key="post.id">
+        <section v-for="post in paginated('posts')" :key="post.id">
         <router-link :to="'/post/' + post.id" ><h1>{{ post.title }}</h1></router-link>
         <div v-if="post.imageUrl"><img :src="post.imageUrl" class="postImage" width="50" height="50"></div>
         <h3>Created at : {{ post.createdAt }}</h3>
@@ -68,7 +68,7 @@ export default {
 
 .page-item.active,
 .page-link {
-  background: linear-gradient(to right, #ff5858, #f857a6) !important; 
+  background: linear-gradient(to right, #ff5858, #f857a6) !important;
   color: white;
 }
 

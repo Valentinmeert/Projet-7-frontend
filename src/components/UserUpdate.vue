@@ -51,12 +51,10 @@ export default {
       })
 
       .then(
-        (user) => user.json(),
-        (error) => console.log(error)
+        (user) => user.json()
       )
       .then(
-        (json) => (this.user = json),
-        (error) => console.log(error)
+        (json) => (this.user = json)
       );
     this.$http
       .get(
@@ -77,12 +75,10 @@ export default {
         }
         )
         .then(
-          (response) => response.json(),
-          (error) => console.log(error)
+          (response) => response.json()
         )
         .then(
-          (json) => (this.posts = json),
-          (error) => console.log(error)
+          (json) => (this.posts = json)
         );
   },
 
@@ -105,9 +101,6 @@ export default {
             this.user = response.data;
             window.alert('Votre profil a bien été modifié !');
             this.$router.push('/');
-          },
-          (response) => {
-            console.log('error');
           }
         );
     },
