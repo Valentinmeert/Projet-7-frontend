@@ -21,5 +21,6 @@ Par défaut, le serveur est accessible en local via le port 8080
 ## **_NB: Compte admin_**
 
 Pour se connecter en tant qu'administrateur :
-email : admin@admin.admin
-mdp: adminadmin
+
+- email : admin@admin.admin
+- mdp: adminadmin
