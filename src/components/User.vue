@@ -1,66 +1,86 @@
 <template>
-<div class="text-center">
-  <div class="card m-auto" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Your Profil</h5>
-      <p class="card-text">
-        <h2>{{ user.lastName }}</h2>
+  <div class="text-center">
+    <div
+      class="card m-auto"
+      style="width: 18rem;"
+    >
+      <div class="card-body">
+        <h5 class="card-title">
+          Your Profil
+        </h5>
+        <p class="card-text" /><h2>{{ user.lastName }}</h2>
         <h2>{{ user.firstName }}</h2>
         <h3>{{ user.email }}</h3>
-      </p>
-      <router-link :to="`/user/${user.id}/update/`">
-        <div class="btn">
-          Modifier le profil
-        </div>
-      </router-link>
-        <div class="btn" @click="destroyUser(user)">
+        </p>
+        <router-link :to="`/user/${user.id}/update/`">
+          <div class="btn">
+            Modifier le profil
+          </div>
+        </router-link>
+        <div
+          class="btn"
+          @click="destroyUser(user)"
+        >
           Supprimer le profil
         </div>
-        <router-link :to="'/createUser'" v-if="admin">
+        <router-link
+          v-if="admin"
+          :to="'/createUser'"
+        >
           <div class="btn">
-          Creer un User
+            Creer un User
           </div>
         </router-link>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <h1>Your posts</h1>
+      <hr>
+      <paginate
+        name="posts"
+        :list="posts"
+        :per="10"
+        tag="div"
+      >
+        <section v-for="post in paginated('posts')">
+          <router-link :to="'/post/' + post.id">
+            <h2>{{ post.title }}</h2>
+          </router-link>
+          <h3>Created at : {{ post.createdAt }}</h3>
+          <router-link :to="'/'">
+            <div
+              class="btn "
+              @click="destroyPost(post)"
+            >
+              Supprimer le post
+            </div>
+          </router-link>
+          <router-link :to="'/updatePost/' + post.id">
+            <div class="btn ">
+              Modifier le post
+            </div>
+          </router-link>
+          <hr>
+        </section>
+      </paginate>
+
+      <paginate-links
+        for="posts"
+        :async="true"
+        :show-step-links="true"
+        :step-links="{
+          next: '->',
+          prev: '<-',
+        }"
+        :classes="{
+          ul: 'pagination',
+          'ul > li': 'page-item',
+          'ul > li > a': 'page-link',
+        }"
+      />
     </div>
   </div>
-<div class="col-sm-12">
-  <h1>Your posts</h1>
-  <hr />
-    <paginate name="posts" :list="posts" :per="10" tag="div">
-      <section v-for="post in paginated('posts')">
-        <router-link :to="'/post/' + post.id" ><h2>{{ post.title }}</h2></router-link>
-        <h3>Created at : {{ post.createdAt }}</h3>
-        <router-link :to="'/'">
-          <div class="btn " @click="destroyPost(post)">
-            Supprimer le post
-          </div>
-        </router-link>
-        <router-link :to="'/updatePost/' + post.id">
-          <div class="btn ">Modifier le post</div>
-        </router-link>
-        <hr />
-      </section>
-    </paginate>
-
-    <paginate-links
-      for="posts"
-      :async="true"
-      :show-step-links="true"
-      :step-links="{
-        next: '->',
-        prev: '<-',
-      }"
-      :classes="{
-        ul: 'pagination',
-        'ul > li': 'page-item',
-        'ul > li > a': 'page-link',
-      }"
-    />
-  </div>
-  </div>
 </template>
-
-
 
 <script>
 export default {
@@ -77,36 +97,35 @@ export default {
       .get(
         `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`,
         {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
-        }
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+        },
       )
       .then((res) => {
-        const data = res.data;
+        const { data } = res;
         this.user = data;
         if (res.data.email === 'admin@admin.admin') {
           this.admin = true;
         }
-        }
-      );
+      });
     this.$http
       .get(
         `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}/post`,
         {
-          headers: { authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
-        }
+          headers: { authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+        },
       )
       .then(
-        (response) => response.json()
+        (response) => response.json(),
       )
       .then(
-        (json) => (this.posts = json)
+        (json) => (this.posts = json),
       );
   },
   methods: {
-      destroyUser() {
+    destroyUser() {
       this.$http
-        .delete(`http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}` , {
-          headers: { authorization: 'Bearer ' + sessionStorage.getItem('jwt') }
+        .delete(`http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`, {
+          headers: { authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
         })
         .then((data) => {
           sessionStorage.clear();
@@ -118,16 +137,16 @@ export default {
       this.$http
         .delete(`http://localhost:3000/api/v1/post/${post.id}`)
         .then(
-          (response) => response.json()
+          (response) => response.json(),
         )
         .then(
-          (json) => (this.posts = json)
+          (json) => (this.posts = json),
         )
         .then(
-          () => location.reload()
+          () => location.reload(),
         );
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
@@ -165,4 +184,3 @@ h1 {
   font-family: 'Staatliches', cursive;
 }
 </style>
-

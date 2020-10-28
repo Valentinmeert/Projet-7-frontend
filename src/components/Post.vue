@@ -1,18 +1,37 @@
 <template>
   <div class="text-center">
-    <paginate name="posts" :list="posts" :per="5" tag="div">
+    <paginate
+      name="posts"
+      :list="posts"
+      :per="5"
+      tag="div"
+    >
       <div>
-        <section v-for="post in paginated('posts')" :key="post.id">
-        <router-link :to="'/post/' + post.id" ><h1>{{ post.title }}</h1></router-link>
-        <div v-if="post.imageUrl"><img :src="post.imageUrl" class="postImage" width="50" height="50"></div>
-        <h3>Created at : {{ post.createdAt }}</h3>
-        <hr />
-      </section>
+        <section
+          v-for="post in paginated('posts')"
+          :key="post.id"
+        >
+          <router-link :to="'/post/' + post.id">
+            <h1>{{ post.title }}</h1>
+          </router-link>
+          <div v-if="post.imageUrl">
+            <img
+              :src="post.imageUrl"
+              class="postImage"
+              width="50"
+              height="50"
+            >
+          </div>
+          <h3>Created at : {{ post.createdAt }}</h3>
+          <hr>
+        </section>
       </div>
-      <p v-if="onePost">NO POST YET</p>
+      <p v-if="onePost">
+        NO POST YET
+      </p>
     </paginate>
 
-    <paginate-links 
+    <paginate-links
       for="posts"
       :async="true"
       :show-step-links="true"
@@ -33,7 +52,7 @@
 export default {
   data() {
     return {
-      users:[],
+      users: [],
       user: {},
       posts: [],
       paginate: ['posts'],
@@ -42,18 +61,18 @@ export default {
     };
   },
   created() {
-      this.$http
-        .get('http://localhost:3000/api/v1/post/root',
+    this.$http
+      .get('http://localhost:3000/api/v1/post/root',
         {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
         })
-        .then( res => {
-          const data = res.data;
-          this.posts = data;
-          if (data.length == 0){
-            this.onePost = true;
-          }
-        })
+      .then((res) => {
+        const { data } = res;
+        this.posts = data;
+        if (data.length == 0) {
+          this.onePost = true;
+        }
+      });
   },
   methods: {
   },

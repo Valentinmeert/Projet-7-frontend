@@ -1,27 +1,56 @@
 <template>
-<div class="text-center">
-  <article class="col-sm-12 w-50 m-auto">
-    <h1>{{ post.title }}</h1>
-    <hr />
-    <h2>{{ post.content }}</h2>
-    <hr />
-    <div v-if="post.imageUrl">
-      <img :src="post.imageUrl" alt="" class="postImg">
-    </div>
-    <hr />
-    <h3>By: {{postUser.firstName}} {{postUser.lastName}}</h3>
-    <hr />
-    <p v-if="disliked"><img @click="like()"   src="../assets/thumb.png" alt="" width="50" height="50">{{likes}}</p>
-    <p v-else><img @click="unlike()"  src="../assets/thumbgreen.png" alt="" width="50" height="50">{{likes}}</p>
-  </article>
-  <router-link :to="'/'">
-    <div class="btn" @click="destroy(post)" v-if="admin">
-      Supprimer le post
-    </div>
-  </router-link>
-  <router-link :to="'/updatePost/' + post.id" v-if="admin">
-    <div class="btn">Modifier le post</div>
-  </router-link>
+  <div class="text-center">
+    <article class="col-sm-12 w-50 m-auto">
+      <h1>{{ post.title }}</h1>
+      <hr>
+      <h2>{{ post.content }}</h2>
+      <hr>
+      <div v-if="post.imageUrl">
+        <img
+          :src="post.imageUrl"
+          alt=""
+          class="postImg"
+        >
+      </div>
+      <hr>
+      <h3>By: {{ postUser.firstName }} {{ postUser.lastName }}</h3>
+      <hr>
+      <p v-if="disliked">
+        <img
+          src="../assets/thumb.png"
+          alt=""
+          width="50"
+          height="50"
+          @click="like()"
+        >{{ likes }}
+      </p>
+      <p v-else>
+        <img
+          src="../assets/thumbgreen.png"
+          alt=""
+          width="50"
+          height="50"
+          @click="unlike()"
+        >{{ likes }}
+      </p>
+    </article>
+    <router-link :to="'/'">
+      <div
+        v-if="admin"
+        class="btn"
+        @click="destroy(post)"
+      >
+        Supprimer le post
+      </div>
+    </router-link>
+    <router-link
+      v-if="admin"
+      :to="'/updatePost/' + post.id"
+    >
+      <div class="btn">
+        Modifier le post
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -30,113 +59,113 @@ export default {
   data() {
     return {
       post: {},
-      react:[],
+      react: [],
       postUser: {},
       likes: '',
-      disliked: '', 
+      disliked: '',
       admin: false,
     };
   },
   created() {
     this.$http
       .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`,
-      {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        {
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
         })
-      .then(res => {
-        const data = res.data;
+      .then((res) => {
+        const { data } = res;
         this.post = data;
-      })
+      });
 
-      this.$http
+    this.$http
       .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}/react`,
-      {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        {
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
         })
-      .then((data)=>
-      {
+      .then((data) => {
         this.likes = Object.keys(data.data).length;
-      })
-      if(!sessionStorage.getItem(`${this.$route.params.id}`)){
-        this.disliked = true;
-      } else {
-        this.disliked = false;
-      }
+      });
+    if (!sessionStorage.getItem(`${this.$route.params.id}`)) {
+      this.disliked = true;
+    } else {
+      this.disliked = false;
+    }
 
-      this.$http
+    this.$http
       .get(`http://localhost:3000/api/v1/post/root/${this.$route.params.id}`,
-      {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        {
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
         })
-.then((data)=>
-      {
+      .then((data) => {
         this.postUser = data.body;
       }),
 
-      this.$http
+    this.$http
       .get(
         `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`,
         {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
-        }
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+        },
       )
       .then((user) => {
         if (user.body.email === 'admin@admin.admin') {
           this.admin = true;
         }
-      })
+      });
   },
   methods: {
-    like(){
+    like() {
       this.$http
-      .post(
-        `http://localhost:3000/api/v1/post/${this.$route.params.id}/react`,
-        {
-          type: "like",
-        },
-        {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') }
-        })
+        .post(
+          `http://localhost:3000/api/v1/post/${this.$route.params.id}/react`,
+          {
+            type: 'like',
+          },
+          {
+            headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+          },
+        )
         .then(
           (response) => {
             this.disliked = false;
-            sessionStorage.setItem(`reactId`,response.body.id)
-            sessionStorage.setItem(`${this.$route.params.id}` , 'liked')
+            sessionStorage.setItem('reactId', response.body.id);
+            sessionStorage.setItem(`${this.$route.params.id}`, 'liked');
             location.reload();
-          }
+          },
         );
     },
-        unlike(){
+    unlike() {
       this.$http
-      .delete(
-        `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/` + sessionStorage.getItem('reactId'),
-        {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') }
-        })
+        .delete(
+          `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/${sessionStorage.getItem('reactId')}`,
+          {
+            headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+          },
+        )
         .then(
           (response) => {
-            sessionStorage.removeItem(`${this.$route.params.id}`)
+            sessionStorage.removeItem(`${this.$route.params.id}`);
             location.reload();
-          }
+          },
         );
     },
     destroy(post) {
       this.$http
         .delete(`http://localhost:3000/api/v1/post/${post.id}`,
-        {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
-        })
+          {
+            headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+          })
         .then(
-          (response) => response.json()
+          (response) => response.json(),
         )
         .then(
-          (json) => (this.posts = json)
+          (json) => (this.posts = json),
         )
         .then(
-          () => location.reload()
+          () => location.reload(),
         );
-    }
-  }
+    },
+  },
 };
 </script>
 

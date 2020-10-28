@@ -1,46 +1,59 @@
 <template>
-<div class="text-center">
-  <form @submit.prevent.stop="createPost" class="form-text">
+  <div class="text-center">
+    <form
+      class="form-text"
+      @submit.prevent.stop="createPost"
+    >
       <label for="title">Title</label>
       <textarea
-      autofocus
-      minlength="1"
-      maxlength="40"
         v-model="title"
+        autofocus
+        minlength="1"
+        maxlength="40"
         type="text"
         name="title"
         required
         class="form-control"
         placeholder="Ajouter un titre"
       />
-      <small id="passwordHelpBlockTitle" class="form-text text-muted">
-  Your title must be 1-40 characters long
-</small>
+      <small
+        id="passwordHelpBlockTitle"
+        class="form-text text-muted"
+      >
+        Your title must be 1-40 characters long
+      </small>
       <label for="content">Content</label>
       <textarea
-      minlength="1"
-      maxlength="40"
         v-model="content"
+        minlength="1"
+        maxlength="40"
         type="text"
         name="content"
         required
         class="form-control"
         placeholder="Ajouter un contenu"
       />
-      <small id="passwordHelpBlockContent" class="form-text text-muted">
-  Your content must be 1-400 characters long
-</small>
-    <div class="form-group">
+      <small
+        id="passwordHelpBlockContent"
+        class="form-text text-muted"
+      >
+        Your content must be 1-400 characters long
+      </small>
+      <div class="form-group">
         <label for="file">Lien image</label>
         <input
-          type="file"
           id="file"
+          type="file"
           name="image"
           @change="uploadImage"
-        />
+        >
       </div>
-    <input class="btn btn-lg btn-block" type="submit" value="Create Post" />
-  </form>
+      <input
+        class="btn btn-lg btn-block"
+        type="submit"
+        value="Create Post"
+      >
+    </form>
   </div>
 </template>
 
@@ -50,42 +63,42 @@ export default {
     return {
       title: '',
       content: '',
-    selectedFile: null,
+      selectedFile: null,
     };
   },
   methods: {
     createPost() {
       if (!this.title) return;
       if (!this.content) return;
-      const { title, content, selectedFile} = this;
-      
-      let fd = new FormData();
+      const { title, content, selectedFile } = this;
+
+      const fd = new FormData();
       fd.append('title', this.title);
       fd.append('content', this.content);
-      if (this.selectedFile){
-      fd.set('image', this.selectedFile, this.selectedFile.name);
+      if (this.selectedFile) {
+        fd.set('image', this.selectedFile, this.selectedFile.name);
       }
       this.$http
-        .post('http://localhost:3000/api/v1/post', fd ,
-        {
-          headers: { 
-            'Content-Type': 'multipart/form-data',
-            authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
-            
-          }
-        })
+        .post('http://localhost:3000/api/v1/post', fd,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
+
+            },
+          })
         .then(
-          (response) => {
+          () => {
             window.alert('Votre post a bien été posté !');
             this.$router.push('/');
-          }
+          },
         );
     },
     uploadImage(evt) {
-this.selectedFile = event.target.files[0];
-        }
+      this.selectedFile = event.target.files[0];
+    },
   },
-  
+
 };
 </script>
 <style>
@@ -137,7 +150,7 @@ body {
 }
 
 .btn {
-  background: linear-gradient(to right, #ff5858, #f857a6) !important; 
+  background: linear-gradient(to right, #ff5858, #f857a6) !important;
   color: white;
 }
 </style>

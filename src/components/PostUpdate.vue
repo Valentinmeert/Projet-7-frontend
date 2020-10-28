@@ -1,33 +1,40 @@
 <template>
   <article class="text-center form-text">
     <label for="title">Title</label>
-    <p><textarea 
-    v-model="post.title" 
-    required
-    type="text"
-    name="title"
-    class="form-control"/></p>
-        <label for="content">Content</label>
-    <p><textarea 
-    v-model="post.content"
-    type="text"
-    name="content"
-    required
-    class="form-control" /></p>
-        <div class="form-group">
-        <label for="file">Lien image</label>
-        <input
-          type="file"
-          id="file"
-          name="image"
-          @change="uploadImage"
-        />
-      </div>
-    <div @click="save(post)" class="btn">
-          Valider la modification
-      <router-link :to="'/'">
-        </router-link
+    <p>
+      <textarea
+        v-model="post.title"
+        required
+        type="text"
+        name="title"
+        class="form-control"
+      />
+    </p>
+    <label for="content">Content</label>
+    <p>
+      <textarea
+        v-model="post.content"
+        type="text"
+        name="content"
+        required
+        class="form-control"
+      />
+    </p>
+    <div class="form-group">
+      <label for="file">Lien image</label>
+      <input
+        id="file"
+        type="file"
+        name="image"
+        @change="uploadImage"
       >
+    </div>
+    <div
+      class="btn"
+      @click="save(post)"
+    >
+      Valider la modification
+      <router-link :to="'/'" />
     </div>
   </article>
 </template>
@@ -37,45 +44,45 @@ export default {
   data() {
     return {
       post: {},
-      selectedFile:'',
+      selectedFile: '',
     };
   },
   created() {
     this.$http
       .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`)
       .then(
-        (post) => post.json()
+        (post) => post.json(),
       )
       .then(
-        (json) => (this.post = json)
+        (json) => (this.post = json),
       );
   },
   methods: {
     save(post) {
-      let fd = new FormData();
+      const fd = new FormData();
       fd.append('title', post.title);
       fd.append('content', post.content);
-      if (this.selectedFile){
-      fd.append('image', this.selectedFile, this.selectedFile.name);
+      if (this.selectedFile) {
+        fd.append('image', this.selectedFile, this.selectedFile.name);
       }
       this.$http
-        .put(`http://localhost:3000/api/v1/post/${post.id}`, fd,  
-        {
-          headers: { 
-            'Content-Type': 'multipart/form-data',
-            authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
-            
-          }
-        })
+        .put(`http://localhost:3000/api/v1/post/${post.id}`, fd,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
+
+            },
+          })
         .then(
           (response) => {
             this.$router.push('/');
-          }
+          },
         );
     },
     uploadImage(evt) {
-this.selectedFile = event.target.files[0];
-        }
+      this.selectedFile = event.target.files[0];
+    },
   },
 };
 </script>

@@ -1,39 +1,46 @@
 <template>
-<div class="text-center">
-  <article class="form-text text-center">
-    <label for="firstName">First Name :</label>
-    <input 
-    pattern="[a-zA-Z -]{1,20}" 
-    v-model="user.firstName" 
-    required
-    type="text"
-    name="firstName"
-    class="form-control"/>
-    <label for="lastName">Last Name :</label>
-    <input 
-    v-model="user.lastName" 
-    pattern="[a-zA-Z -]{1,20}"
-    required
-    type="text"
-    name="lastName"
-    class="form-control"/>
-    <label for="lastName">Email :</label>
-    <input 
-    v-model="user.email"
-    pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,25}"
-    required
-    type="text"
-    name="email"
-    class="form-control"/>
+  <div class="text-center">
+    <article class="form-text text-center">
+      <label for="firstName">First Name :</label>
+      <input
+        v-model="user.firstName"
+        pattern="[a-zA-Z -]{1,20}"
+        required
+        type="text"
+        name="firstName"
+        class="form-control"
+      >
+      <label for="lastName">Last Name :</label>
+      <input
+        v-model="user.lastName"
+        pattern="[a-zA-Z -]{1,20}"
+        required
+        type="text"
+        name="lastName"
+        class="form-control"
+      >
+      <label for="lastName">Email :</label>
+      <input
+        v-model="user.email"
+        pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,25}"
+        required
+        type="text"
+        name="email"
+        class="form-control"
+      >
     </article>
-      <div
-        @click="save(user)" class="btn">
-          Valider la modification
-        </div>
-      <router-link :to="'/updatePassword/' + user.id" class="btn">
-          Modifier votre mot de passe
-        </router-link>
-  
+    <div
+      class="btn"
+      @click="save(user)"
+    >
+      Valider la modification
+    </div>
+    <router-link
+      :to="'/updatePassword/' + user.id"
+      class="btn"
+    >
+      Modifier votre mot de passe
+    </router-link>
   </div>
 </template>
 
@@ -47,39 +54,38 @@ export default {
   created() {
     this.$http
       .get(`http://localhost:3000/api/v1/user/${this.$route.params.id}`, {
-        headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
       })
 
       .then(
-        (user) => user.json()
+        (user) => user.json(),
       )
       .then(
         (json) => (this.user = json)
-      );
+      )
     this.$http
       .get(
         `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`,
         {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
-        }
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+        },
       )
       .then((user) => {
         if (user.body.email === 'admin@admin.admin') {
           this.admin = true;
         }
       }),
-      this.$http
-        .get('http://localhost:3000/api/v1/post/root',
+    this.$http
+      .get('http://localhost:3000/api/v1/post/root',
         {
-          headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
-        }
-        )
-        .then(
-          (response) => response.json()
-        )
-        .then(
-          (json) => (this.posts = json)
-        );
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+        })
+      .then(
+        (response) => response.json(),
+      )
+      .then(
+        (json) => (this.posts = json),
+      );
   },
 
   methods: {
@@ -90,18 +96,18 @@ export default {
           {
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email
+            email: user.email,
           },
           {
-            headers: { Authorization: 'Bearer ' + sessionStorage.getItem('jwt') },
-          }
+            headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+          },
         )
         .then(
           (response) => {
             this.user = response.data;
             window.alert('Votre profil a bien été modifié !');
             this.$router.push('/');
-          }
+          },
         );
     },
   },
@@ -152,7 +158,7 @@ body {
 }
 
 .btn {
-  background: linear-gradient(to right, #ff5858, #f857a6) !important; 
+  background: linear-gradient(to right, #ff5858, #f857a6) !important;
   color: white;
 }
 </style>
