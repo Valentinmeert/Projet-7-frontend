@@ -135,7 +135,9 @@ export default {
     },
     destroyPost(post) {
       this.$http
-        .delete(`http://localhost:3000/api/v1/post/${post.id}`)
+        .delete(`http://localhost:3000/api/v1/post/${post.id}`, {
+          headers: { authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+        })
         .then(
           (response) => response.json(),
         )

@@ -69,7 +69,7 @@ export default {
       .then((res) => {
         const { data } = res;
         this.posts = data;
-        if (data.length == 0) {
+        if (data.length === 0) {
           this.onePost = true;
         }
       });

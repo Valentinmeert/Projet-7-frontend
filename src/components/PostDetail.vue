@@ -85,7 +85,7 @@ export default {
       .then((data) => {
         this.likes = Object.keys(data.data).length;
       });
-    if (!sessionStorage.getItem(`${this.$route.params.id}`)) {
+    if (!localStorage.getItem(`${this.$route.params.id}`)) {
       this.disliked = true;
     } else {
       this.disliked = false;
@@ -98,7 +98,7 @@ export default {
         })
       .then((data) => {
         this.postUser = data.body;
-      }),
+      });
 
     this.$http
       .get(
@@ -128,8 +128,8 @@ export default {
         .then(
           (response) => {
             this.disliked = false;
-            sessionStorage.setItem('reactId', response.body.id);
-            sessionStorage.setItem(`${this.$route.params.id}`, 'liked');
+            localStorage.setItem('reactId', response.body.id);
+            localStorage.setItem(`${this.$route.params.id}`, 'liked');
             location.reload();
           },
         );
@@ -137,14 +137,14 @@ export default {
     unlike() {
       this.$http
         .delete(
-          `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/${sessionStorage.getItem('reactId')}`,
+          `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/${localStorage.getItem('reactId')}`,
           {
             headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
           },
         )
         .then(
-          (response) => {
-            sessionStorage.removeItem(`${this.$route.params.id}`);
+          () => {
+            localStorage.removeItem(`${this.$route.params.id}`);
             location.reload();
           },
         );
