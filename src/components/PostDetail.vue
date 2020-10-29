@@ -15,22 +15,22 @@
       <hr>
       <h3>By: {{ postUser.firstName }} {{ postUser.lastName }}</h3>
       <hr>
-      <p v-if="disliked">
-        <img
-          src="../assets/thumb.png"
-          alt=""
-          width="50"
-          height="50"
-          @click="like()"
-        >{{ likes }}
-      </p>
-      <p v-else>
+      <p v-if="alreadyLiked">
         <img
           src="../assets/thumbgreen.png"
           alt=""
           width="50"
           height="50"
           @click="unlike()"
+        >{{ likes }}
+      </p>
+      <p v-else>
+        <img
+          src="../assets/thumb.png"
+          alt=""
+          width="50"
+          height="50"
+          @click="like()"
         >{{ likes }}
       </p>
     </article>
@@ -62,7 +62,7 @@ export default {
       react: [],
       postUser: {},
       likes: '',
-      disliked: '',
+      alreadyLiked: '',
       admin: false,
     };
   },
@@ -83,13 +83,21 @@ export default {
           headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
         })
       .then((data) => {
+        if (sessionStorage.getItem(`${this.$route.params.id}`)) {
+          this.alreadyLiked = true;
+        }
+        console.log('false');
         this.likes = Object.keys(data.data).length;
+        for (let i = 0; i < Object.keys(data.data).length; i++) {
+          console.log(JSON.parse(data.body[i].userId));
+          if (parseInt(sessionStorage.getItem('userId')) === data.body[i].userId) {
+            console.log('true');
+            sessionStorage.setItem('reactId', data.body[i].id);
+            sessionStorage.setItem(`${this.$route.params.id}`, 'liked');
+            this.alreadyLiked = true;
+          }
+        }
       });
-    if (!localStorage.getItem(`${this.$route.params.id}`)) {
-      this.disliked = true;
-    } else {
-      this.disliked = false;
-    }
 
     this.$http
       .get(`http://localhost:3000/api/v1/post/root/${this.$route.params.id}`,
@@ -127,9 +135,10 @@ export default {
         )
         .then(
           (response) => {
-            this.disliked = false;
-            localStorage.setItem('reactId', response.body.id);
-            localStorage.setItem(`${this.$route.params.id}`, 'liked');
+            this.alreadyLiked = true;
+            console.log(response);
+            sessionStorage.setItem('reactId', response.body.id);
+            sessionStorage.setItem(`${this.$route.params.id}`, 'liked');
             location.reload();
           },
         );
@@ -137,14 +146,14 @@ export default {
     unlike() {
       this.$http
         .delete(
-          `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/${localStorage.getItem('reactId')}`,
+          `http://localhost:3000/api/v1/post/${this.$route.params.id}/react/${sessionStorage.getItem('reactId')}`,
           {
             headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
           },
         )
         .then(
           () => {
-            localStorage.removeItem(`${this.$route.params.id}`);
+            sessionStorage.removeItem(`${this.$route.params.id}`);
             location.reload();
           },
         );
