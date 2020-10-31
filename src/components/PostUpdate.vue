@@ -49,7 +49,10 @@ export default {
   },
   created() {
     this.$http
-      .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`)
+      .get(`http://localhost:3000/api/v1/post/${this.$route.params.id}`,
+        {
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
+        })
       .then(
         (post) => post.json(),
       )

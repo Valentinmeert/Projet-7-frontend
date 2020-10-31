@@ -57,7 +57,7 @@ export default {
         headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` },
       })
       .then((user) => user.json())
-      .then((json) => (this.user = json))
+      .then((json) => (this.user = json));
     this.$http
       .get(
         `http://localhost:3000/api/v1/user/${sessionStorage.getItem('userId')}`,
