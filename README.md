@@ -1,6 +1,6 @@
 # Projet 7 de la formation de développeur Web d'OpenClassrooms "Créer un réseau social d'entreprise"
 
-Pour que le projet fonctionne: il faut aussi lancer le back-end situé à cette adresse : https://github.com/Valentinmeert/backend
+Pour que le projet fonctionne: il faut aussi lancer le back-end situé à cette adresse : https://github.com/Valentinmeert/Projet-7-backend
 
 ## Front-end
 
